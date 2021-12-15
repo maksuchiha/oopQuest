@@ -4,13 +4,12 @@ let moveLR = 0
 let moveTB = 0
 
 
-const DomElement = function () {
-    this.selector = '.block'
-    this.height = '100px'
-    this.width = '100px'
-    this.bg = 'red'
-    this.fontSize = '14px'
-    this.position = 'absolute'
+const DomElement = function (selector, height, width, bg, fontSize) {
+    this.selector = selector
+    this.height = height
+    this.width = width
+    this.bg = bg
+    this.fontSize = fontSize
     this.createItem = function() {
         if (this.selector[0] === '.') {
             const div = document.createElement('div')
@@ -18,7 +17,6 @@ const DomElement = function () {
             div.style.cssText = `
                                  height: ${this.height}; width: ${this.width}; 
                                  background: ${this.bg}; font-size: ${this.fontSize};
-                                 position: ${this.position}
                                 `
             div.textContent = 'Hello World!'
             document.body.append(div)
@@ -30,7 +28,7 @@ const DomElement = function () {
     }
 }
 
-let object = new DomElement("newObject")
+let object = new DomElement('.block', '100px', '100px', 'red', '14px')
 
 document.addEventListener('DOMContentLoaded', () => {
     object.createItem()
@@ -41,6 +39,7 @@ moveTB = 0
 
 const move = (arr) => {
     const block = document.querySelector('.block')
+    block.style.position = 'absolute'
     if (arr === 'ArrowRight') {
         moveLR = moveLR + 10
         block.style.left = moveLR + 'px'
