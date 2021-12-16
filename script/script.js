@@ -41,16 +41,16 @@ const move = (arr) => {
     const block = document.querySelector('.block')
     block.style.position = 'absolute'
     if (arr === 'ArrowRight') {
-        moveLR = moveLR + 10
+        moveLR += 10
         block.style.left = moveLR + 'px'
     } else if (arr === 'ArrowLeft') {
-        moveLR = moveLR - 10
+        moveLR -= 10
         block.style.left = moveLR + 'px'
     } else if (arr === 'ArrowUp') {
-        moveTB = moveTB - 10
+        moveTB -= 10
         block.style.top = moveTB + 'px'
     } else if (arr === 'ArrowDown') {
-        moveTB = moveTB + 10
+        moveTB += 10
         block.style.top = moveTB + 'px'
     }
 }
