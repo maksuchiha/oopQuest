@@ -4,7 +4,7 @@ let moveLR = 0
 let moveTB = 0
 
 
-const DomElement = function (selector, height, width, bg, fontSize) {
+const DomElement = function (selector, height, width, bg, fontSize = '14px') {
     this.selector = selector
     this.height = height
     this.width = width
@@ -28,7 +28,7 @@ const DomElement = function (selector, height, width, bg, fontSize) {
     }
 }
 
-let object = new DomElement('.block', '100px', '100px', 'red', '14px')
+let object = new DomElement('.block', '100px', '100px', 'red')
 
 document.addEventListener('DOMContentLoaded', () => {
     object.createItem()
@@ -41,17 +41,25 @@ const move = (arr) => {
     const block = document.querySelector('.block')
     block.style.position = 'absolute'
     if (arr === 'ArrowRight') {
-        moveLR += 10
-        block.style.left = moveLR + 'px'
+        if (moveLR < innerWidth - +object.width.slice(0, -2)) {
+            moveLR += 10
+            block.style.left = moveLR + 'px'
+        }
     } else if (arr === 'ArrowLeft') {
-        moveLR -= 10
-        block.style.left = moveLR + 'px'
+        if (moveLR > 10) {
+            moveLR -= 10
+            block.style.left = moveLR + 'px'
+        }
     } else if (arr === 'ArrowUp') {
-        moveTB -= 10
-        block.style.top = moveTB + 'px'
+        if (moveTB > 10) {
+            moveTB -= 10
+            block.style.top = moveTB + 'px'
+        }
     } else if (arr === 'ArrowDown') {
-        moveTB += 10
-        block.style.top = moveTB + 'px'
+        if (moveTB < innerHeight - +object.height.slice(0, -2)) {
+            moveTB += 10
+            block.style.top = moveTB + 'px'
+        }
     }
 }
 
