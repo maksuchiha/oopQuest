@@ -36,9 +36,6 @@
         border: 1px solid black;
         padding: 10px;
     }
-    #prof__info {
-        display: none;
-    }
 </style>
 <body>
 <form id="form" action="#">
@@ -53,12 +50,11 @@
         <input name="sex" value="женский" aria-label="" type="radio" id="sex_w">
         <label for="sex_w">Женский</label>
     </div>
-    <input id="age" aria-label="" type="text" placeholder="Введите свой возраст">
-    <input id="name" aria-label="" type="text" placeholder="Введите имя">
-    <input id="last-name" aria-label="" type="text" placeholder="Введите фамилию">
-    <select aria-label="" id="prof__info"></select>
-    <input id="exp" aria-label="" type="text" placeholder="Введите свой стаж работы">
-    <input id="organization" aria-label="" type="text" placeholder="Введите свою организацию">
+    <input required id="age" aria-label="" type="text" placeholder="Введите свой возраст">
+    <input required id="name" aria-label="" type="text" placeholder="Введите имя">
+    <input required id="last-name" aria-label="" type="text" placeholder="Введите фамилию">
+    <input required id="exp" aria-label="" type="text" placeholder="Введите свой стаж работы">
+    <input required id="organization" aria-label="" type="text" placeholder="Введите свою организацию">
     <div>
         <input aria-label="" id="kids" type="checkbox">
         <label for="kids">Наличие детей</label>
