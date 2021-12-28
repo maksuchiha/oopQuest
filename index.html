@@ -8,7 +8,82 @@
     <title>Document</title>
     <script src="script/script.js" defer></script>
 </head>
-<body>
+<style>
+    body {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        max-width: 200px;
+        margin: 10px auto 50px;
+    }
+    form input, select {
+        margin-bottom: 15px;
+    }
+    .sex {
+        display: flex;
 
+    }
+    table {
+        margin: 0 auto;
+        border-spacing: 0;
+        border-collapse: collapse;
+    }
+    table td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+    #prof__info {
+        display: none;
+    }
+</style>
+<body>
+<form id="form" action="#">
+    <select aria-label="" id="prof">
+        <option value="locksmith">Слесарь</option>
+        <option value="driver">Водитель</option>
+    </select>
+    <div class="sex">
+        Пол
+        <input name="sex" value="мужской" aria-label="" type="radio" id="sex_m">
+        <label for="sex_m">Мужской</label>
+        <input name="sex" value="женский" aria-label="" type="radio" id="sex_w">
+        <label for="sex_w">Женский</label>
+    </div>
+    <input id="age" aria-label="" type="text" placeholder="Введите свой возраст">
+    <input id="name" aria-label="" type="text" placeholder="Введите имя">
+    <input id="last-name" aria-label="" type="text" placeholder="Введите фамилию">
+    <select aria-label="" id="prof__info"></select>
+    <input id="exp" aria-label="" type="text" placeholder="Введите свой стаж работы">
+    <input id="organization" aria-label="" type="text" placeholder="Введите свою организацию">
+    <div>
+        <input aria-label="" id="kids" type="checkbox">
+        <label for="kids">Наличие детей</label>
+    </div>
+    <button id="submit">Сохранить</button>
+</form>
+<div id="table-wr">
+    <table id="table">
+        <thead id="table-title">
+            <tr>
+                <td>Профессия</td>
+                <td>Пол</td>
+                <td>Возраст</td>
+                <td>Имя</td>
+                <td>Фамилия</td>
+                <td>Стаж</td>
+                <td>Организация</td>
+                <td>Наличие детей</td>
+                <td>Действие</td>
+            </tr>
+        </thead>
+        <tbody class="table-body">
+
+        </tbody>
+    </table>
+</div>
 </body>
 </html>

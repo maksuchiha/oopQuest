@@ -1,68 +1,113 @@
 'use strict'
 
-let moveLR = 0
-let moveTB = 0
+const form = document.getElementById('form')
+const prof = document.getElementById('prof')
+const sex = document.querySelectorAll('input[name=sex]')
+const age = document.getElementById('age')
+const exp = document.getElementById('exp')
+const organization = document.getElementById('organization')
+const wName = document.getElementById('name')
+const wLastName = document.getElementById('last-name')
+const wKids = document.getElementById('kids')
+const table = document.querySelector('.table-body')
+let data = []
 
 
-const DomElement = function (selector, height, width, bg, fontSize = '14px') {
-    this.selector = selector
-    this.height = height
-    this.width = width
-    this.bg = bg
-    this.fontSize = fontSize
-    this.createItem = function() {
-        if (this.selector[0] === '.') {
-            const div = document.createElement('div')
-            div.className = `${this.selector.slice(1)}`
-            div.style.cssText = `
-                                 height: ${this.height}; width: ${this.width}; 
-                                 background: ${this.bg}; font-size: ${this.fontSize};
-                                `
-            div.textContent = 'Hello World!'
-            document.body.append(div)
-        } else if (this.selector[0] === '#') {
-            const p = document.createElement('div')
-            p.id = `${this.selector.selector.slice(1)}`
-            document.body.append(p)
+class Worker {
+    constructor(worker, sex, age, exp) {
+        this.worker = worker
+        this.sex = sex
+        this.age = age
+        this.exp = exp
+    }
+    ifWorker(arr) {
+        let worker = ''
+        if (arr.value === 'locksmith') {
+            worker = 'Слесарь'
+        } else if (arr.value === 'driver') {
+            worker = 'Водитель'
         }
+        return worker
+    }
+    ifAge(arr) {
+        let sex = ''
+        arr.forEach((item) => {
+            if (item.checked) {
+                sex = `${item.value}`
+            } else if (item.checked) {
+                sex = `${item.value}`
+            }
+        })
+        return sex
     }
 }
 
-let object = new DomElement('.block', '100px', '100px', 'red')
-
-document.addEventListener('DOMContentLoaded', () => {
-    object.createItem()
-})
-
-moveLR = 0
-moveTB = 0
-
-const move = (arr) => {
-    const block = document.querySelector('.block')
-    block.style.position = 'absolute'
-    if (arr === 'ArrowRight') {
-        if (moveLR < innerWidth - +object.width.slice(0, -2)) {
-            moveLR += 10
-            block.style.left = moveLR + 'px'
-        }
-    } else if (arr === 'ArrowLeft') {
-        if (moveLR > 10) {
-            moveLR -= 10
-            block.style.left = moveLR + 'px'
-        }
-    } else if (arr === 'ArrowUp') {
-        if (moveTB > 10) {
-            moveTB -= 10
-            block.style.top = moveTB + 'px'
-        }
-    } else if (arr === 'ArrowDown') {
-        if (moveTB < innerHeight - +object.height.slice(0, -2)) {
-            moveTB += 10
-            block.style.top = moveTB + 'px'
-        }
+class AddInf extends Worker {
+    constructor(worker, sex, age, exp, name, lastName) {
+        super(worker, sex, age, exp)
+        this.name = name
+        this.lastName = lastName
     }
 }
 
-document.addEventListener('keydown', (e) => {
-    move(e.key)
+class Family extends AddInf {
+    constructor(worker, sex, age, exp, name, lastName, organization, kids) {
+        super(worker, sex, age, exp, name, lastName)
+        this.organization = organization
+        this.kids = kids
+    }
+    hKids(arr) {
+        let kids
+        if (arr.checked) {
+            kids = 'есть дети'
+        } else {
+            kids = 'нет детей'
+        }
+        return kids
+    }
+}
+
+const render = () => {
+    table.innerHTML = ''
+    data.forEach((item, index) => {
+        const tBody = document.createElement('tr')
+
+        tBody.classList.add('str')
+
+        tBody.innerHTML = `
+                        <td>${item.worker}</td>
+                        <td>${item.sex}</td>
+                        <td>${item.age}</td>
+                        <td>${item.name}</td>
+                        <td>${item.lastName}</td>
+                        <td>${item.exp}</td>
+                        <td>${item.organization}</td>
+                        <td>${item.kids}</td>
+                        <td><button class="btnDel">удалить</button></td>
+                       `
+
+        table.append(tBody)
+
+        tBody.querySelector('.btnDel').addEventListener('click', () => {
+            data.splice(index, 1)
+            localStorage.setItem('data', JSON.stringify(data))
+            render()
+        })
+    })
+}
+
+form.addEventListener('submit', (e) => {
+    e.preventDefault()
+    let obj = new Family(`${new Worker().ifWorker(prof)}`, `${new Worker().ifAge(sex)}`, `${age.value}`,
+        `${exp.value}`, `${wName.value}`, `${wLastName.value}`, `${organization.value}`,
+        `${new Family().hKids(wKids)}`)
+
+    data.push(obj)
+    localStorage.setItem('data', JSON.stringify(data))
+    render()
 })
+
+if (localStorage.getItem('data')) {
+    data = JSON.parse(localStorage.getItem('data'))
+    render()
+}
