@@ -40,6 +40,13 @@ class Worker {
         })
         return sex
     }
+    del(arr, index) {
+        if (arr === document.querySelector('.btnDel')) {
+            data.splice(index, 1)
+            localStorage.setItem('data', JSON.stringify(data))
+            render()
+        }
+    }
 }
 
 class AddInf extends Worker {
@@ -88,10 +95,8 @@ const render = () => {
 
         table.append(tBody)
 
-        tBody.querySelector('.btnDel').addEventListener('click', () => {
-            data.splice(index, 1)
-            localStorage.setItem('data', JSON.stringify(data))
-            render()
+        tBody.addEventListener('click', (e) => {
+            new Worker().del(e.target, index)
         })
     })
 }
